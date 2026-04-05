@@ -4,9 +4,7 @@ import { ArrowUp, Paperclip, Sparkles, PenLine } from 'lucide-react'
 import { useChatStore } from '@/stores/chat-store'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
-import { Header } from '@/components/layout/header'
 import { Main } from '@/components/layout/main'
-import { ThemeSwitch } from '@/components/theme-switch'
 
 const quickActions = [
   'Refine the aesthetic',
@@ -52,18 +50,6 @@ export function CraftHome() {
   }
 
   return (
-    <>
-      <Header>
-        <div className='flex items-center gap-2'>
-          <h1 className='font-manrope text-lg font-bold tracking-tight text-foreground'>
-            Craft AI
-          </h1>
-        </div>
-        <nav className='ms-auto flex items-center gap-6'>
-          <ThemeSwitch />
-        </nav>
-      </Header>
-
       <Main>
         <div className='flex flex-1 flex-col items-center justify-center px-4'>
           {/* Ambient gold glow behind content */}
@@ -185,6 +171,5 @@ export function CraftHome() {
           </div>
         </div>
       </Main>
-    </>
   )
 }
