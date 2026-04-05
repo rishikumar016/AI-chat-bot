@@ -1,6 +1,5 @@
-import { Bot, User } from 'lucide-react'
+import { Sparkles, User } from 'lucide-react'
 import { cn } from '@/lib/utils'
-import { Avatar, AvatarFallback } from '@/components/ui/avatar'
 import type { Message } from '../types'
 
 interface ChatMessageProps {
@@ -17,34 +16,38 @@ export function ChatMessage({ message }: ChatMessageProps) {
         isUser ? 'flex-row-reverse' : 'flex-row'
       )}
     >
-      <Avatar className='size-8 shrink-0'>
-        <AvatarFallback
-          className={cn(
-            isUser
-              ? 'bg-primary text-primary-foreground'
-              : 'bg-muted text-muted-foreground'
-          )}
-        >
-          {isUser ? <User className='size-4' /> : <Bot className='size-4' />}
-        </AvatarFallback>
-      </Avatar>
+      <div
+        className={cn(
+          'flex h-8 w-8 shrink-0 items-center justify-center rounded-full',
+          isUser
+            ? 'bg-foreground text-background'
+            : 'bg-craft-gold-glow text-craft-gold'
+        )}
+      >
+        {isUser ? <User className='h-4 w-4' /> : <Sparkles className='h-4 w-4' />}
+      </div>
       <div
         className={cn(
           'flex max-w-[80%] flex-col gap-1',
           isUser ? 'items-end' : 'items-start'
         )}
       >
+        {!isUser && (
+          <span className='mb-0.5 text-[10px] uppercase tracking-[0.2em] text-muted-foreground'>
+            The Curator
+          </span>
+        )}
         <div
           className={cn(
-            'rounded-2xl px-4 py-2',
+            'rounded-2xl px-4 py-2.5',
             isUser
-              ? 'bg-primary text-primary-foreground'
-              : 'bg-muted text-foreground'
+              ? 'bg-craft-surface-low text-foreground'
+              : 'bg-transparent text-foreground'
           )}
         >
-          <p className='text-sm whitespace-pre-wrap'>{message.content}</p>
+          <p className='text-sm leading-relaxed whitespace-pre-wrap'>{message.content}</p>
         </div>
-        <span className='text-xs text-muted-foreground'>
+        <span className='text-[10px] uppercase tracking-[0.15em] text-muted-foreground'>
           {message.timestamp.toLocaleTimeString([], {
             hour: '2-digit',
             minute: '2-digit',

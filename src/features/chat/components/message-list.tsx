@@ -1,5 +1,5 @@
 import { useEffect, useRef } from 'react'
-import { Loader2 } from 'lucide-react'
+import { Sparkles } from 'lucide-react'
 import { useChatStore } from '@/stores/chat-store'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import type { Message } from '../types'
@@ -21,14 +21,18 @@ export function MessageList({ messages }: MessageListProps) {
 
   return (
     <ScrollArea className='flex-1 px-4'>
-      <div ref={scrollRef} className='mx-auto max-w-3xl py-4'>
+      <div ref={scrollRef} className='mx-auto max-w-3xl py-6'>
         {messages.map((message) => (
           <ChatMessage key={message.id} message={message} />
         ))}
         {isTyping && (
-          <div className='flex items-center gap-2 py-4 text-muted-foreground'>
-            <Loader2 className='size-4 animate-spin' />
-            <span className='text-sm'>AI is thinking...</span>
+          <div className='flex items-center gap-2.5 py-4'>
+            <div className='flex h-8 w-8 items-center justify-center rounded-full bg-craft-gold-glow'>
+              <Sparkles className='h-4 w-4 animate-pulse text-craft-gold' />
+            </div>
+            <span className='text-xs uppercase tracking-[0.15em] text-muted-foreground'>
+              The Curator is composing...
+            </span>
           </div>
         )}
       </div>

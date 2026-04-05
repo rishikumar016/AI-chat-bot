@@ -30,7 +30,7 @@ export function ChatLayout() {
   return (
     <SidebarProvider defaultOpen={defaultOpen}>
       <ChatSidebar />
-      <SidebarInset className='h-svh'>
+      <SidebarInset className='flex h-svh flex-col'>
         <ChatTopbar />
         <Outlet />
       </SidebarInset>
