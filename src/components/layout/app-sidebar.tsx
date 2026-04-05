@@ -2,12 +2,14 @@ import { useNavigate } from '@tanstack/react-router'
 import { Plus } from 'lucide-react'
 import { useLayout } from '@/context/layout-provider'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { Button } from '@/components/ui/button'
 import {
   Sidebar,
   SidebarContent,
   SidebarFooter,
   SidebarHeader,
+  SidebarMenu,
+  SidebarMenuButton,
+  SidebarMenuItem,
   SidebarRail,
 } from '@/components/ui/sidebar'
 import { sidebarData } from './data/sidebar-data'
@@ -20,21 +22,19 @@ export function AppSidebar() {
   return (
     <Sidebar collapsible={collapsible} variant={variant}>
       <SidebarHeader className='px-4 pt-6 pb-2'>
-        <div className='mb-1'>
-          <h2 className='font-manrope text-base font-bold tracking-tight text-foreground'>
-            Curated History
-          </h2>
-          <p className='text-xs tracking-wide text-muted-foreground'>
-            Your creative archive
-          </p>
-        </div>
-        <Button
-          onClick={() => navigate({ to: '/chat' })}
-          className='mt-3 w-full justify-center gap-2 rounded-full bg-craft-gold py-5 font-manrope text-sm font-semibold text-white shadow-none hover:bg-craft-gold/90'
-        >
-          <Plus className='size-4' />
-          New Craft Session
-        </Button>
+        <SidebarMenu>
+          <SidebarMenuItem>
+            <SidebarMenuButton
+              size='lg'
+              tooltip='New Craft'
+              onClick={() => navigate({ to: '/chat' })}
+              className='rounded-full bg-craft-gold font-manrope font-semibold text-white shadow-none hover:bg-craft-gold/90 hover:text-white flex iten-center justify-center'
+            >
+              <Plus className='size-5' />
+              <span className='group-data-[collapsible=icon]:hidden block'>New Craft</span>
+            </SidebarMenuButton>
+          </SidebarMenuItem>
+        </SidebarMenu>
       </SidebarHeader>
       <SidebarContent className='px-2'>
         {sidebarData.navGroups.map((props) => (

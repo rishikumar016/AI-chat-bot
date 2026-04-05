@@ -60,15 +60,6 @@ export function CraftHome() {
           </h1>
         </div>
         <nav className='ms-auto flex items-center gap-6'>
-          <button className='text-sm font-medium text-craft-gold transition-colors hover:text-craft-gold/80'>
-            Workspace
-          </button>
-          <button className='text-sm font-medium text-muted-foreground transition-colors hover:text-foreground'>
-            Templates
-          </button>
-          <button className='text-sm font-medium text-muted-foreground transition-colors hover:text-foreground'>
-            Showcase
-          </button>
           <ThemeSwitch />
         </nav>
       </Header>

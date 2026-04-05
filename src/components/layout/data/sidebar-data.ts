@@ -30,11 +30,6 @@ export const sidebarData: SidebarData = {
       title: 'Curated History',
       items: [
         {
-          title: 'New Chat',
-          url: '/chat',
-          icon: MessageSquarePlus,
-        },
-        {
           title: 'Recent Conversations',
           url: '/chat',
           icon: Clock,
