@@ -1,6 +1,5 @@
-import { createFileRoute } from '@tanstack/react-router'
-import { ChatArea } from '@/features/chat/components/chat-area'
+import { createFileRoute, Navigate } from '@tanstack/react-router'
 
 export const Route = createFileRoute('/_authenticated/chat/')({
-  component: ChatArea,
+  component: () => <Navigate to='/' />,
 })

@@ -27,11 +27,13 @@ export function AppSidebar() {
             <SidebarMenuButton
               size='lg'
               tooltip='New Craft'
-              onClick={() => navigate({ to: '/chat' })}
-              className='rounded-full bg-craft-gold font-manrope font-semibold text-white shadow-none hover:bg-craft-gold/90 hover:text-white flex iten-center justify-center'
+              onClick={() => navigate({ to: '/' })}
+              className='iten-center flex justify-center rounded-full bg-craft-gold font-manrope font-semibold text-white shadow-none hover:bg-craft-gold/90 hover:text-white'
             >
               <Plus className='size-5' />
-              <span className='group-data-[collapsible=icon]:hidden block'>New Craft</span>
+              <span className='block group-data-[collapsible=icon]:hidden'>
+                New Craft
+              </span>
             </SidebarMenuButton>
           </SidebarMenuItem>
         </SidebarMenu>
