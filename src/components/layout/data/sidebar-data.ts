@@ -1,8 +1,5 @@
 import {
   MessageSquarePlus,
-  Clock,
-  Bookmark,
-  Archive,
   Settings,
   Palette,
   Bell,
@@ -26,26 +23,6 @@ export const sidebarData: SidebarData = {
     },
   ],
   navGroups: [
-    {
-      title: 'Curated History',
-      items: [
-        {
-          title: 'Recent Conversations',
-          url: '/chat',
-          icon: Clock,
-        },
-        {
-          title: 'Saved Prompts',
-          url: '/chat',
-          icon: Bookmark,
-        },
-        {
-          title: 'Archive',
-          url: '/chat',
-          icon: Archive,
-        },
-      ],
-    },
     {
       title: 'Other',
       items: [
