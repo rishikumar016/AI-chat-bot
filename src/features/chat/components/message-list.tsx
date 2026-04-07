@@ -22,7 +22,7 @@ export function MessageList({ messages, isTyping }: MessageListProps) {
     <ScrollArea className='flex-1 px-4'>
       <div ref={scrollRef} className='mx-auto max-w-3xl py-6'>
         {messages.map((message) => (
-          <ChatMessage key={message.id} message={message} />
+          <ChatMessage key={message._id} message={message} />
         ))}
         {isTyping && (
           <div className='flex items-center gap-2.5 py-4'>
