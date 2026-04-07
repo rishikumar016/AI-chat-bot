@@ -1,14 +1,11 @@
-import { useEffect } from 'react'
-import { useChatStore } from '@/stores/chat-store'
-import { ChatArea } from '@/features/chat/components/chat-area'
+import { EmptyChat } from '@/features/chat/components/empty-chat'
+import { MessageInput } from '@/features/chat/components/message-input'
 
 export function CraftHome() {
-  const { setActiveConversation } = useChatStore()
-
-  // Clear active conversation so ChatArea shows EmptyChat + MessageInput
-  useEffect(() => {
-    setActiveConversation(null)
-  }, [setActiveConversation])
-
-  return <ChatArea />
+  return (
+    <div className='flex flex-1 flex-col overflow-hidden'>
+      <EmptyChat />
+      <MessageInput />
+    </div>
+  )
 }

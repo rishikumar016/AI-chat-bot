@@ -24,7 +24,11 @@ export function ChatMessage({ message }: ChatMessageProps) {
             : 'bg-craft-gold-glow text-craft-gold'
         )}
       >
-        {isUser ? <User className='h-4 w-4' /> : <Sparkles className='h-4 w-4' />}
+        {isUser ? (
+          <User className='h-4 w-4' />
+        ) : (
+          <Sparkles className='h-4 w-4' />
+        )}
       </div>
       <div
         className={cn(
@@ -33,7 +37,7 @@ export function ChatMessage({ message }: ChatMessageProps) {
         )}
       >
         {!isUser && (
-          <span className='mb-0.5 text-[10px] uppercase tracking-[0.2em] text-muted-foreground'>
+          <span className='mb-0.5 text-[10px] tracking-[0.2em] text-muted-foreground uppercase'>
             The Curator
           </span>
         )}
@@ -45,10 +49,12 @@ export function ChatMessage({ message }: ChatMessageProps) {
               : 'bg-transparent text-foreground'
           )}
         >
-          <p className='text-sm leading-relaxed whitespace-pre-wrap'>{message.content}</p>
+          <p className='text-sm leading-relaxed whitespace-pre-wrap'>
+            {message.content}
+          </p>
         </div>
-        <span className='text-[10px] uppercase tracking-[0.15em] text-muted-foreground'>
-          {message.timestamp.toLocaleTimeString([], {
+        <span className='text-[10px] tracking-[0.15em] text-muted-foreground uppercase'>
+          {new Date(message.createdAt).toLocaleTimeString([], {
             hour: '2-digit',
             minute: '2-digit',
           })}

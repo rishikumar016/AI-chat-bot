@@ -1,54 +1,55 @@
 import { useState, useRef, useEffect } from 'react'
 import { useNavigate } from '@tanstack/react-router'
+import { useApi } from '@/api'
 import { ArrowUp, Paperclip } from 'lucide-react'
 import { useChatStore } from '@/stores/chat-store'
 import { Button } from '@/components/ui/button'
 import { Textarea } from '@/components/ui/textarea'
 
-export function MessageInput() {
+interface MessageInputProps {
+  conversationId?: string
+}
+
+export function MessageInput({ conversationId }: MessageInputProps) {
   const [input, setInput] = useState('')
   const textareaRef = useRef<HTMLTextAreaElement>(null)
   const navigate = useNavigate()
-  const {
-    activeConversationId,
-    addMessage,
-    createConversation,
-    setIsTyping,
-    isTyping,
-  } = useChatStore()
+  const { isTyping, setIsTyping } = useChatStore()
+  const { useCreateConversation, useSendMessage } = useApi()
+  const createConversation = useCreateConversation()
+  const sendMessage = useSendMessage()
 
   useEffect(() => {
     textareaRef.current?.focus()
-  }, [activeConversationId])
+  }, [conversationId])
 
   const handleSubmit = async () => {
     if (!input.trim() || isTyping) return
 
-    let conversationId = activeConversationId
-
-    if (!conversationId) {
-      conversationId = createConversation()
-      navigate({ to: '/chat/$conversationId', params: { conversationId } })
-    }
-
-    addMessage(conversationId, {
-      role: 'user',
-      content: input.trim(),
-      timestamp: new Date(),
-    })
-
+    const content = input.trim()
     setInput('')
     setIsTyping(true)
 
-    // Simulate AI response
-    setTimeout(() => {
-      addMessage(conversationId!, {
-        role: 'assistant',
-        content: `This is a simulated response to: "${input.trim()}"\n\nIn a real implementation, this would be connected to an AI backend.`,
-        timestamp: new Date(),
-      })
+    try {
+      if (!conversationId) {
+        // Create a new conversation with the first message
+        const res = await createConversation.mutateAsync({ content })
+        setIsTyping(false)
+        navigate({
+          to: '/chat/$conversationId',
+          params: { conversationId: res.data.id },
+        })
+      } else {
+        // Send message to existing conversation
+        await sendMessage.mutateAsync({
+          conversationId,
+          content,
+        })
+        setIsTyping(false)
+      }
+    } catch {
       setIsTyping(false)
-    }, 1500)
+    }
   }
 
   const handleKeyDown = (e: React.KeyboardEvent) => {

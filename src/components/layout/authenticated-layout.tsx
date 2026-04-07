@@ -1,6 +1,4 @@
-import { useEffect } from 'react'
 import { Outlet } from '@tanstack/react-router'
-import { useChatStore } from '@/stores/chat-store'
 import { getCookie } from '@/lib/cookies'
 import { cn } from '@/lib/utils'
 import { LayoutProvider } from '@/context/layout-provider'
@@ -10,7 +8,6 @@ import { AppSidebar } from '@/components/layout/app-sidebar'
 import { Header } from '@/components/layout/header'
 import { SkipToMain } from '@/components/skip-to-main'
 import { ThemeSwitch } from '@/components/theme-switch'
-import { mockConversations } from '@/features/chat/data/mock-data'
 
 type AuthenticatedLayoutProps = {
   children?: React.ReactNode
@@ -18,13 +15,6 @@ type AuthenticatedLayoutProps = {
 
 export function AuthenticatedLayout({ children }: AuthenticatedLayoutProps) {
   const defaultOpen = getCookie('sidebar_state') !== 'false'
-  const { conversations, setConversations } = useChatStore()
-
-  useEffect(() => {
-    if (conversations.length === 0) {
-      setConversations(mockConversations)
-    }
-  }, [conversations.length, setConversations])
 
   return (
     <SearchProvider>

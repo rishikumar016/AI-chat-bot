@@ -46,7 +46,9 @@ export function EmptyChat() {
               className='group flex flex-col items-center gap-2.5 rounded-xl bg-craft-surface-low p-5 text-center transition-all hover:-translate-y-0.5 hover:bg-accent'
             >
               <suggestion.icon className='h-5 w-5 text-craft-gold' />
-              <span className='text-sm font-medium text-foreground'>{suggestion.title}</span>
+              <span className='text-sm font-medium text-foreground'>
+                {suggestion.title}
+              </span>
               <span className='text-xs leading-relaxed text-muted-foreground'>
                 {suggestion.description}
               </span>

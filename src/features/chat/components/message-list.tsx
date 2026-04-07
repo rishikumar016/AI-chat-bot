@@ -1,16 +1,15 @@
 import { useEffect, useRef } from 'react'
 import { Sparkles } from 'lucide-react'
-import { useChatStore } from '@/stores/chat-store'
 import { ScrollArea } from '@/components/ui/scroll-area'
 import type { Message } from '../types'
 import { ChatMessage } from './chat-message'
 
 interface MessageListProps {
   messages: Message[]
+  isTyping: boolean
 }
 
-export function MessageList({ messages }: MessageListProps) {
-  const { isTyping } = useChatStore()
+export function MessageList({ messages, isTyping }: MessageListProps) {
   const scrollRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
@@ -30,7 +29,7 @@ export function MessageList({ messages }: MessageListProps) {
             <div className='flex h-8 w-8 items-center justify-center rounded-full bg-craft-gold-glow'>
               <Sparkles className='h-4 w-4 animate-pulse text-craft-gold' />
             </div>
-            <span className='text-xs uppercase tracking-[0.15em] text-muted-foreground'>
+            <span className='text-xs tracking-[0.15em] text-muted-foreground uppercase'>
               The Curator is composing...
             </span>
           </div>
