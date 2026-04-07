@@ -1,3 +1,6 @@
+import Markdown from 'react-markdown'
+import remarkGfm from 'remark-gfm'
+import rehypeHighlight from 'rehype-highlight'
 import { Sparkles, User } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import type { Message } from '../types'
@@ -49,9 +52,20 @@ export function ChatMessage({ message }: ChatMessageProps) {
               : 'bg-transparent text-foreground'
           )}
         >
-          <p className='text-sm leading-relaxed whitespace-pre-wrap'>
-            {message.content}
-          </p>
+          {isUser ? (
+            <p className='text-sm leading-relaxed whitespace-pre-wrap'>
+              {message.content}
+            </p>
+          ) : (
+            <div className='prose prose-sm dark:prose-invert max-w-none wrap-break-word [&_pre]:overflow-x-auto [&_pre]:rounded-lg [&_pre]:p-3 [&_code]:rounded [&_code]:px-1 [&_code]:py-0.5'>
+              <Markdown
+                remarkPlugins={[remarkGfm]}
+                rehypePlugins={[rehypeHighlight]}
+              >
+                {message.content}
+              </Markdown>
+            </div>
+          )}
         </div>
         <span className='text-[10px] tracking-[0.15em] text-muted-foreground uppercase'>
           {new Date(message.createdAt).toLocaleTimeString([], {
