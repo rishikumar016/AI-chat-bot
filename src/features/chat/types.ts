@@ -6,6 +6,13 @@ export interface Message {
   updatedAt: string
 }
 
+export interface Pagination {
+  page: number
+  limit: number
+  totalMessages: number
+  totalPages: number
+}
+
 export interface Conversation {
   _id: string
   title: string
@@ -13,4 +20,5 @@ export interface Conversation {
   totalTokensUsed: number
   createdAt: string
   updatedAt: string
+  pagination?: Pagination
 }

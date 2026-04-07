@@ -14,10 +14,10 @@ export function MessageInput({ conversationId }: MessageInputProps) {
   const [input, setInput] = useState('')
   const textareaRef = useRef<HTMLTextAreaElement>(null)
   const navigate = useNavigate()
-  const { isTyping, setIsTyping } = useChatStore()
-  const { useCreateConversation, useSendMessage } = useApi()
-  const createConversation = useCreateConversation()
-  const sendMessage = useSendMessage()
+  const { isTyping } = useChatStore()
+  const { useStreamMessage, useStreamCreateConversation } = useApi()
+  const { send: sendStream } = useStreamMessage()
+  const { send: createStream } = useStreamCreateConversation()
 
   useEffect(() => {
     textareaRef.current?.focus()
@@ -28,27 +28,19 @@ export function MessageInput({ conversationId }: MessageInputProps) {
 
     const content = input.trim()
     setInput('')
-    setIsTyping(true)
 
     try {
       if (!conversationId) {
-        // Create a new conversation with the first message
-        const res = await createConversation.mutateAsync({ content })
-        setIsTyping(false)
+        const { conversationId: newId } = await createStream(content)
         navigate({
           to: '/chat/$conversationId',
-          params: { conversationId: res.data.id },
+          params: { conversationId: newId },
         })
       } else {
-        // Send message to existing conversation
-        await sendMessage.mutateAsync({
-          conversationId,
-          content,
-        })
-        setIsTyping(false)
+        await sendStream(conversationId, content)
       }
     } catch {
-      setIsTyping(false)
+      // Streaming errors are handled in the hook (resetStreaming is called)
     }
   }
 

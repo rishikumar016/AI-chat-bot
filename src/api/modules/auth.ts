@@ -21,7 +21,7 @@ apiClient.interceptors.request.use((config) => {
 
 let refreshPromise: Promise<string> | null = null
 
-async function getNewToken(): Promise<string> {
+export async function getNewToken(): Promise<string> {
   if (refreshPromise) return refreshPromise
 
   refreshPromise = axios

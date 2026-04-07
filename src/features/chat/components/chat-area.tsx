@@ -8,10 +8,14 @@ import { MessageList } from './message-list'
 export function ChatArea() {
   const { conversationId } = useParams({ strict: false })
   const { useConversationById } = useApi()
-  const { data: conversation, isLoading } = useConversationById(
-    conversationId ?? ''
-  )
-  const { isTyping } = useChatStore()
+  const {
+    data: conversation,
+    isLoading,
+    hasNextPage,
+    fetchNextPage,
+    isFetchingNextPage,
+  } = useConversationById(conversationId ?? '')
+  const { isTyping, streamingContent, isSearching } = useChatStore()
 
   const hasMessages = conversation && conversation.messages.length > 0
 
@@ -26,7 +30,15 @@ export function ChatArea() {
   return (
     <div className='flex flex-1 flex-col overflow-hidden'>
       {hasMessages ? (
-        <MessageList messages={conversation.messages} isTyping={isTyping} />
+        <MessageList
+          messages={conversation.messages}
+          isTyping={isTyping}
+          streamingContent={streamingContent}
+          isSearching={isSearching}
+          hasOlderMessages={!!hasNextPage}
+          isLoadingOlder={isFetchingNextPage}
+          onLoadOlder={() => fetchNextPage()}
+        />
       ) : (
         <EmptyChat />
       )}
