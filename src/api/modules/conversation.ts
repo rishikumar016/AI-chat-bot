@@ -105,7 +105,7 @@ export function useChatHooks() {
         queryKey: chatKeys.conversations(),
         queryFn: async () => {
           const res = await chatApi.getConversations()
-          return res.data
+          return Array.isArray(res.data) ? res.data : []
         },
       })
     },
